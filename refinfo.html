@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ION RefInfo</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
+	<style type="text/css">
+		html, body{
+			background-color: #fafafa;
+			padding: 0;
+			margin: 0;
+			font-size: 16px;
+		}
+		.form{
+			padding: 5% 5%;
+			width: 680px;
+		}
+		.bg_white{
+			background-color: #fff;
+		}
+		.m-v-15{
+			margin: 15px auto;
+		}
+		.w-60{
+			width: 60px;
+		}
+	</style>
+</head>
+<body>
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Ref Info
+      </h1>
+      <h2 class="subtitle">
+      	ION6200, ION7X50 &amp; ION8650  
+      </h2>
+    </div>
+  </div>
+</section>
+<section class="section" id="vue">
+    <div class="container">
+    	<div v-show="showImage" class="level">
+    		<figure class="level-item has-text-centered">
+				<img v-bind:src="imageSource" width="100" height="100">
+			</figure>
+    	</div>
+		<div>
+			<input placeholder="M7650..." type="text" v-model="reference" v-on:keyup="checkForReference" class="input is-medium">
+		</div>
+		<div class="level m-v-15">
+			<progress class="progress is-success" v-bind:value="progressNum" max="100">{{ progressNum }}%</progress>
+		</div>
+		<div>
+			<div v-for="(value, key) in refCodeData" class="is-size-5">
+				<div class="columns">
+					<div class="column is-narrow w-100">{{ key }}</div>
+					<div class="column">{{ value }}</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="is-size-5">
+			<div>
+				<label class="has-text-info">Opciones Seleccionadas:</label>
+			</div>
+			<div v-for="item in optionsSelected" class="columns">
+				<div class="column">{{ item }}</div>
+			</div>
+		</div>
+    </div>
+  </section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        By <a href="http://fb.me/engelsrodriguezcruz">Engels Rodriguez</a> <label><img src="https://emojipedia-us.s3.amazonaws.com/thumbs/160/whatsapp/116/flag-for-peru_1f1f5-1f1ea.png" width="16" height="16"></label>
+      </p>
+      <p>
+      	<a href="http://www.ptsys.com.pe">PTSYS</a> m1n1.h4cks.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script type="text/javascript" src="https://unpkg.com/vue@2.1.3/dist/vue.js"></script>
+<script type="text/javascript">
+var app = new Vue({
+		el: "#vue",
+
+		data: {
+			reference : '',
+			refCodeData : {},
+			showImage : true,
+			imageSource : 'http://via.placeholder.com/100x100',
+			optionsSelected : [],
+			progressNum : 0,
+			table : {
+				M6200 : {
+					0 : {
+						'M6200' : 'ION 6200'
+					},
+					1 : {
+						'A0' : 'Integrated Display',
+						'M0' : 'MegaWatt option on Integrated Display Product',
+						'N1' : 'MegaWatt option on Tranducer Product with Remote Display & 14-ft cable (RJ11, 6 conductor, 26 gauge)',
+						'N2' : 'MegaWatt option on Tranducer Product with Remote Display & 6-ft cable (RJ11, 6 conductor, 26 gauge)',
+						'N3' : 'MegaWatt option on Tranducer Product with Remote Display & 30-ft cable (RJ11, 6 conductor, 26 gauge)',
+						'R1' : 'Transducer version with Remote Display w/ 14-ft cable',
+						'R2' : 'Transducer version with Remote Display w/ 6-ft cable',
+						'R3' : 'Transducer version with Remote Display w/ 30-ft cable',
+						'T1' : 'Transducer version (requires Comms or pulse outputs)'
+					},
+					2 : {
+						'A' : '10 Amp current inputs '
+					},
+					3 : {
+						'0' : 'Autoranging (57-400 VAC L-N / 99-690 VAC L-L)'
+					},
+					4 : {
+						'B' : 'Standard Plug-in Power Supply: 100-240VAC, 110-300 VDC ',
+						'C' : 'P24 plug-in power supply (20-60VDC)'
+					},
+					5 : {
+						'0' : 'Autoranging (50Hz and 60Hz)'
+					},
+					6 : {
+						'Z0' : 'None',
+						'A0' : 'Single RS485 port (includes MODBUS RTU)'
+					},
+					7 : {
+						'A' : 'No pulse outputs',
+						'B' : 'Two solid state Form A pulse outputs for kWh, kVAh or kVARh energy pulsing'
+					},
+					8 : {
+						'0' : 'Password protected, no security lock',
+						'2' : 'Password protected with security lock enabled'
+					},
+					9 : {
+						'N' : 'Standard Measurements: Volts/Amps per phase and avg.',
+						'P' : 'Enhanced Package #1: Volts/Amps, Energy/Power, Frequency, Power Factor ',
+						'R' : 'Enhanced Package #2: All Measurements (see the 6200 ION Datasheet for details)'
+					}
+
+				},
+				M7550 : {
+					0 : {
+						'M7550' : 'ION7550'
+					},
+					1 : {
+						'A0' : 'Integrated Display, with 5 MB logging memory and front optical port, 256 samples/cycle.',
+						'B0' : 'Integrated Display, with 10 MB logging memory and front optical port, 256 samples/cycle.',
+						'T0' : 'Transducer version (No display), with 5 MB logging memory, 256 samples/cycle.',
+						'U0' : 'Transducer version (No display), with 10 MB logging memory, 256 samples/cycle.'
+					},
+					2 : {
+						'C' : 'Standard (5 Amp nominal, 20 Amp full scale current input)',
+						'E' : '1 Amp nominal, 10 Amp full scale current input',
+						'F' : 'Current Probe inputs (for use with 0-1 VAC current probes; probes sold separately)',
+						'G' : 'Current Probe inputs with three Universal Technic 10A clamp on CTs; meets IEC 1036 accuracy'
+					},
+					3 : {
+						'0' : 'Autoranging (57 to 347 VAC L-N, 100 to 600 VAC L-L)'
+					},
+					4 : {
+						'B' : 'Auxiliary Power Pigtail: 85-240 VAC, 110-300 VDC (power from external source)',
+						'C' : 'Low voltage DC power supply (20-60 VDC)'
+					},
+					5 : {
+						'5' : 'Calibrated for 50 Hz systems',
+						'6' : 'Calibrated for 60 Hz systems'
+					},
+					6 : {
+						'A0' : 'Standard Comms: 1 RS232/RS485 port (COM1), 1 RS485 (COM2), Type 2 ANSI optical port (COM4)',
+						'C1' : 'Standard plus Ethernet (10/100BASE-T), 56k universal internal modem (RJ11)',
+						'D7' : 'Standard plus Ethernet (10/100BASE-T, 100BASE-FX), 56k internal modem (RJ11)',
+						'E0' : 'Standard plus Ethernet (10/100BASE-T)',
+						'F1' : 'Standard plus Ethernet (10/100BASE-T, 100BASE-FX)',
+						'M1' : 'Standard plus 56k universal internal modem (RJ11)'
+					},
+					7 : {
+						'A' : 'Standard  (8 digital inputs, 3 Form C Relays, 4 Form A solid-state outputs)',
+						'E' : 'Standard plus Expansion I/O card with 8 digital inputs & four 0 to 20 mA analog inputs',
+						'K' : 'Standard plus Expansion I/O card with 8 digital inputs & four 0 to 20mA analog outputs',
+						'N' : 'Standard plus Expansion I/O card with 8 digital inputs & four 0 to 20mA analog inputs & four 0 to 20mA outputs',
+						'P' : 'Standard plus Expansion I/O card with 8 digital inputs & four 0 to 1 mA analog inputs and four -1 to 1 mA analog outputs.  Note: This option is the recommended replacement for Options D and H (removed Dec 1, 2009)'
+					},
+					8 : {
+						'0' : 'Password protected, no security lock',
+						'1' : 'Password protected with security lock enabled'
+					},
+					9 : {
+						'A' : 'None',
+						'C' : 'Tropicalization treatment applied'
+					}
+				},
+				M7650 : {
+					0 : {
+						'M7650' : 'ION7650'
+					},
+					1 : {
+						'A0' : 'Integrated Display with 5 MB logging memory, front optical port, and 512 samples/cycle',
+						'A1' : 'Integrated Display with 5 MB logging memory, front optical port, and 1024 samples/cycle',
+						'B0' : 'Integrated Display with 10 MB logging memory, front optical port, and 512 samples/cycle',
+						'B1' : 'Integrated Display with 10 MB logging memory, front optical port, and 1024 samples/cycle',
+						'T0' : 'Transducer version (no display), with 5 MB logging memory, and 512 samples/cycle',
+						'T1' : 'Transducer (no display) version, with 5 MB logging memory, and 1024 samples/cycle',
+						'U0' : 'Transducer version (no display), with 10 MB logging memory, and 512 samples/cycle',
+						'U1' : 'Transducer version (no display) version, with 10 MB logging memory, and 1024 samples/cycle'
+					},
+					2 : {
+						'C' : 'Standard (5 Amp nominal, 20 Amp full scale current input)',
+						'E' : '1 Amp nominal, 10 Amp full scale current input',
+						'F' : 'Current Probe inputs (for use with 0-1 VAC current probes; probes sold separately)',
+						'G' : 'Current Probe inputs with three Universal Technic 10A clamp on CTs; meets IEC 1036 accuracy'
+					},
+					3 : {
+						'0' : 'Autoranging (57 to 347 VAC L-N, 100 to 600 VAC L-L)'
+					},
+					4 : {
+						'B' : 'Auxiliary Power Pigtail: 85-240 VAC, 110-300 VDC (power from external source)',
+						'C' : 'Low voltage DC power supply (20-60 VDC)'
+					},
+					5 : {
+						'5' : 'Calibrated for 50 Hz systems',
+						'6' : 'Calibrated for 60 Hz systems'
+					},
+					6 : {
+						'A0' : 'Standard Comms: 1 RS232/RS485 port (COM1), 1 RS485 (COM2), Type 2 ANSI optical port (COM4)',
+						'C1' : 'Standard plus Ethernet (10/100BASE-T), 56k universal internal modem (RJ11)',
+						'D7' : 'Standard plus Ethernet (10/100BASE-T, 100BASE-FX), 56k internal modem (RJ11)',
+						'E0' : 'Standard plus Ethernet (10/100BASE-T)',
+						'F1' : 'Standard plus Ethernet (10/100BASE-T, 100BASE-FX)',
+						'M1' : 'Standard plus 56k internal modem (RJ11)'
+					},
+					7 : {
+						'A' : 'Standard  (8 digital inputs, 3 Form C Relays, 4 Form A solid-state outputs)',
+						'E' : 'Standard plus Expansion I/O card with 8 digital inputs & four 0 to 20 mA analog inputs',
+						'K' : 'Standard plus Expansion I/O card with 8 digital inputs & four 0 to 20mA analog outputs',
+						'N' : 'Standard plus Expansion I/O card with 8 digital inputs & four 0 to 20mA analog inputs & four 0 to 20mA outputs',
+						'P' : 'Standard plus Expansion I/O card with 8 digital inputs & four 0 to 1 mA analog inputs and four -1 to 1 mA analog outputs.  Note: This option is the recommended replacement for Options D and H (removed Dec 1, 2009)'
+					},
+					8 : {
+						'0' : 'Password protected, no hardware lock',
+						'1' : 'Password protected and hardware lock enabled'
+					},
+					9 : {
+						'A' : 'None',
+						'C' : 'Tropicalization treatment applied',
+						'E' : 'EN50160 compliance monitoring and IEC 61000-4-30 Cl. A measurements',
+						'F' : 'EN50160 compliance monitoring, IEC 61000-4-30 Cl. A measurements and tropicalization treatment'
+					}
+				},
+				M8650 : {
+					0 : {
+						'M8650' : 'ION8650'
+					},
+					1 : {
+						'A' : '128MB Memory - Feature Set B + Class A power quality analysis (waveforms and transient capture with 1024 samples/cycle resolution)',
+						'B' : '64MB Memory - Energy meter + Class S + EN50160 power quality monitoring',
+						'C' : '32MB Memory - Basic Tariff/Energy meter (4 data recorders - 64 channels)'
+					},
+					2 : {
+						'0' : 'Form 9/29/36S Base - 57-277 VLN (autoranging) 3-Element, 4-Wire / 2 1/2-Element, 4-Wire',
+						'1' : 'Form 35S Base - 120-480 VLL (autoranging) 2-Element, 3-Wire',
+						'4' : 'Form 9/29/35/36S   FT21 Switchboard (meter + case) with break out panel',
+						'7' : 'Form 9/29/35/36S   FT21 Switchboard (meter + case) with break out cable'
+					},
+					3 : {
+						'C' : '1, 2 or 5 Amp nominal, 20 Amp full scale current input (24 Amp fault capture, start at 0.001A)'
+					},
+					4 : {
+						'0' : 'Standard (see Form Factor above)'
+					},
+					5 : {
+						'E' : 'Form 9S, 36S (socket) and Form 9,36 (FT21 switchboard): 120-277 VAC. Form 35S (socket) and Form 35 (FT21 switchboard): 120-480 VAC.  Powered from the meter\'s voltage connections, low end measurement range limited to 120VLL',
+						'H' : 'Auxiliary Power Pigtail: 65-120 VAC, 80-160 VDC (power from external source), North American Plug Style',
+						'J' : 'Auxiliary Power Pigtail: 160-277 VAC, 200-350 VDC (power from external source), North American Plug Style',
+						'K' : 'Auxiliary Power Pigtail: 65-120 VAC, 80-160 VDC (power from external source), Universal Socket Style',
+						'L' : 'Auxiliary Power Pigtail: 160-277 VAC, 200-350 VDC (power from external source), Universal Socket Style'
+					},
+					6 : {
+						'5' : '50Hz',
+						'6' : '60Hz'
+					},
+					7 : {
+						'A0' : 'Infrared Optical port, RS-232/485 port, RS-485 port',
+						'C7' : 'Infrared Optical port, Ethernet (10/100BASE-T), RS-232/485 port, RS-485 port (Note: in addition to Infrared Optical port Feature Set C can use any two ports (configurable)), 56k universal internal modem (RJ11)',
+						'E1' : 'Infrared Optical port, Ethernet (10/100BASE-T), RS-232/485 port, RS-485 port (Note: in addition to Infrared Optical port Feature Set C can use any two ports (configurable))',
+						'F1' : 'Infrared Optical port, Ethernet (100BASE-FX multi-mode) with male ST connectors (available on socket meters only, Forms 0 & 1 above. I/O card not available if this option is ordered.), RS-232/485 port, RS-485 port (Note: in addition to Infrared Optical port Feature Set C can use any two ports (configurable))',
+						'M1' : 'Infrared Optical port, RS-232/485 port, RS-485 port (Note: in addition to Infrared Optical port Feature Set C can use any two ports (configurable)), 56k universal internal modem (RJ11)'
+					},
+					8 : {
+						'A' : 'None',
+						'B' : '4 Form C Digital Outputs , 3 Digital Inputs (not available with communications option F1)',
+						'C' : '4 Form C Digital Outputs , 1 Form A Digital Output, 1 Digital Input'
+					},
+					9 : {
+						'0' : 'Password protected, no security lock',
+						'1' : 'Password protected with security lock enabled'
+					},
+					10 : {
+						'A' : 'None'
+					}
+				}
+			},
+			jumps : {
+				M6200 : [5, 2, 1, 1, 1, 1, 2, 1, 1, 1],
+				M7550 : [5, 2, 1, 1, 1, 1, 2, 1, 1, 1],
+				M7650 : [5, 2, 1, 1, 1, 1, 2, 1, 1, 1],
+				M8650 : [5, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1]
+			}
+		},
+
+		methods : {
+			checkForReference : function()
+			{
+				this.reference = this.reference.toUpperCase();
+				this.reference = this.reference.replace(/-/g, "");
+				this.reference = this.reference.replace(" ", "");
+				if(this.reference.length>=5)
+				{
+					var baseCode = '';
+					if(this.reference.substring(0,5)=='M6200')
+						baseCode = 'M6200';
+					else if(this.reference.substring(0,5)=='M7550')
+						baseCode = 'M7550';
+					else if(this.reference.substring(0,5)=='M7650')
+						baseCode = 'M7650';
+					else if(this.reference.substring(0,5)=='M8650')
+						baseCode = 'M8650';
+					else
+						return 0;
+
+					this.imageSource = 'http://www.ptsys.com.pe/img/productos/' + baseCode + '.jpg';
+					this.showImage = true;
+
+					if(this.reference.length<=16)
+					{
+						let option = this.getPosition(baseCode, this.reference.length);
+						if( option != null)
+							this.refCodeData = this.table[baseCode][option];
+
+						this.optionsSelected = this.getOptionsSelected(baseCode, this.reference.length);
+						this.progressNum = parseInt(this.reference.length*100/16);
+					}
+				}
+			},
+
+			getOptionsSelected : function(baseCode, len)
+			{
+				var l = 0;
+				var options = [];
+				for (let i = 0; i < this.jumps[baseCode].length; i++)
+				{
+					if(len < (l + this.jumps[baseCode][i]))
+						break;
+					let optionOK = false;
+					for(let prop in this.table[baseCode][i])
+					{
+						if(this.table[baseCode][i].hasOwnProperty(prop))
+						{
+							if(this.reference.substr(l, this.jumps[baseCode][i]) == prop)
+							{
+								options.push(this.table[baseCode][i][prop]);
+								optionOK = true;
+							}
+						}
+					}
+					if(!optionOK)
+						options.push('[Error] Esta opción no existe');
+					l = l + this.jumps[baseCode][i];
+				}
+				return options;
+			},
+
+			getPosition : function(baseCode, len)
+			{
+				var j = 0;
+				for (var i=0; i < this.jumps[baseCode].length; i++)
+				{
+					j = j + this.jumps[baseCode][i];
+					if(len == j)
+						return i+1;
+					if(len < j)
+						return null;
+				}
+			}
+
+		}
+	});
+</script>
+</body>
+</html>

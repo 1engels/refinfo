@@ -52,6 +52,9 @@
 		<div class="level m-v-15">
 			<progress class="progress is-success" v-bind:value="progressNum" max="100">{{ progressNum }}%</progress>
 		</div>
+		<div class="is-size-5 m-v-15">
+			<a class="button is-warning" v-show="showWarning">No existe!</a>
+		</div>
 		<div>
 			<div v-for="(value, key) in refCodeData" class="is-size-5">
 				<div class="columns">
@@ -68,6 +71,9 @@
 			<div v-for="item in optionsSelected" class="columns">
 				<div class="column">{{ item }}</div>
 			</div>
+		</div>
+		<div class="m-v-15" v-show="showSearchBox">
+			Buscarla en <a target="_blank" v-bind:href="linkSE">Schneider Electric Web</a>
 		</div>
     </div>
   </section>
@@ -97,6 +103,9 @@ var app = new Vue({
 			imageSource : 'http://via.placeholder.com/100x100',
 			optionsSelected : [],
 			progressNum : 0,
+			showWarning : false,
+			linkSE : '',
+			showSearchBox : false,
 			table : {
 				M6200 : {
 					0 : {
@@ -345,6 +354,20 @@ var app = new Vue({
 
 						this.optionsSelected = this.getOptionsSelected(baseCode, this.reference.length);
 						this.progressNum = parseInt(this.reference.length*100/16);
+						if(this.progressNum==100)
+						{
+							this.showSearchBox = true;
+							this.linkSE = "https://www.schneider-electric.com/en/search/" + this.reference;
+						}
+						else
+						{
+							this.showSearchBox = false;
+							this.linkSE = "";	
+						}
+					}
+					else
+					{
+						this.showWarning = true;
 					}
 				}
 			},
@@ -370,7 +393,12 @@ var app = new Vue({
 						}
 					}
 					if(!optionOK)
+					{
 						options.push('[Error] Esta opción no existe');
+						this.showWarning = true;
+					}
+					else
+						this.showWarning = false;	
 					l = l + this.jumps[baseCode][i];
 				}
 				return options;

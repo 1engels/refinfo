@@ -82,7 +82,7 @@
   <div class="container">
     <div class="content has-text-centered">
       <p>
-        By <a href="http://fb.me/engelsrodriguezcruz">Engels Rodriguez</a> <label><img src="https://emojipedia-us.s3.amazonaws.com/thumbs/160/whatsapp/116/flag-for-peru_1f1f5-1f1ea.png" width="16" height="16"></label>
+        By <a href="https://github.com/1engels">Engels Rodriguez</a> <label><img src="https://emojipedia-us.s3.amazonaws.com/thumbs/160/whatsapp/116/flag-for-peru_1f1f5-1f1ea.png" width="16" height="16"></label>
       </p>
       <p>
       	<a href="http://www.ptsys.com.pe">PTSYS</a> m1n1.h4cks.
@@ -376,6 +376,7 @@ var app = new Vue({
 			{
 				var l = 0;
 				var options = [];
+				var hasWarning = false;
 				for (let i = 0; i < this.jumps[baseCode].length; i++)
 				{
 					if(len < (l + this.jumps[baseCode][i]))
@@ -396,11 +397,12 @@ var app = new Vue({
 					{
 						options.push('[Error] Esta opción no existe');
 						this.showWarning = true;
+						hasWarning = true;
 					}
-					else
-						this.showWarning = false;	
 					l = l + this.jumps[baseCode][i];
 				}
+				if(!hasWarning)
+					this.showWarning = false;
 				return options;
 			},
 
@@ -420,5 +422,6 @@ var app = new Vue({
 		}
 	});
 </script>
+
 </body>
 </html>
